@@ -1,4 +1,5 @@
 <?php
+$tabTitle="Services";
 $page_title = "";
 include_once 'header.php';
 include_once 'config/database.php';
@@ -66,18 +67,18 @@ if(isset($_POST['btnUpdateService'])){
 ?>
 
 <?php if (isset($_SESSION['success'])) : ?>
-  <div class="alert alert-success">
-    <h5>
-      <?php 
+<div class="alert alert-success">
+	<h5>
+		<?php 
         echo $_SESSION['success']; 
         unset($_SESSION['success']);
       ?>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </h5>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</h5>
 
-  </div>
+</div>
 <?php endif ?> 
 
 <style>
@@ -109,194 +110,218 @@ if(isset($_POST['btnUpdateService'])){
       <div class="tab-content" id="v-pills-tabContent">
 
       <!--SERVICES TAB-->
-        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-          <nav class="navbar navbar-success bg-dark text-white justify-content-between">
-            <button data-target="#addServiceModal" data-toggle="modal" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Service</button>
-            <h5>Goods and Services</h5>
-            <form class="form-inline">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search Service..." aria-label="Search" name="searchMember" id="searchService" style="background-image: url('res/search.png');background-repeat: no-repeat;padding: 5px 10px 5px 40px; background-position: 1px 1px;">
-            </form>
-          </nav><br>
+<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+	<nav class="navbar navbar-success bg-dark text-white justify-content-between">
+		<button data-target="#addServiceModal" data-toggle="modal" class="btn btn-primary">
+			<i class="fas fa-plus-circle"></i> Add Service</button>
+		<h5>Goods and Services</h5>
+		<form class="form-inline">
+			<input class="form-control mr-sm-2" type="search" placeholder="Search Service..." aria-label="Search" name="searchMember"
+			 id="searchService" style="background-image: url('res/search.png');background-repeat: no-repeat;padding: 5px 10px 5px 40px; background-position: 1px 1px;">
+		</form>
+	</nav>
+	<br>
 
-          <table class="table table-striped table-hover table-sm" id="servicesTable">
-            <thead>
-              <tr class="bg-dark text-white">
-                <th>Category</th>
-                <th scope="col">Service</th>
-                <th scope="col">Unit Price</th>     
-                <th colspan="2"><center>Actions</center></th>
-              </tr>
-            </thead>
-            <tbody>
-              
-              <?php while($rows = $service->fetch(PDO::FETCH_ASSOC)){
+	<table class="table table-striped table-hover table-sm" id="servicesTable">
+		<thead>
+			<tr class="bg-dark text-white">
+				<th>Category</th>
+				<th scope="col">Service</th>
+				<th scope="col">Unit Price</th>
+				<th colspan="2">
+					<center>Actions</center>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<?php while($rows = $service->fetch(PDO::FETCH_ASSOC)){
                 extract($rows);
-              ?>        
-              <tr>
-                <td><?php echo $rows['serviceCategory'];?></td>
-                <td><?php echo $rows['serviceName'];?></td>
-                <td><?php echo $rows['servicePrice'];?></td>
-                <td>
-                <?php if($rows['isArchived'] == 0){ ?>
-                  <center>
-                    <a href="" class="btn btn-primary btn-sm edit-service" data-toggle="modal" data-target="#editModal" data-id="<?php echo $rows['serviceID'];?>" data-name="<?php echo $rows['serviceName'];?>" data-price="<?php echo $rows['servicePrice'];?>" data-category="<?php echo $rows['serviceCategory'];?>"><i class="fas fa-edit"></i> Edit</a>
-              
-                    <a href="?deactivateServiceID=<?php echo $rows['serviceID'];?>" class="btn btn-secondary btn-sm" onclick="return confirm('Remove the service from the list?')"><i class="fas fa-archive"></i> Archive</a>
-                  </center>   <?php }
+              ?>
+			<tr>
+				<td>
+					<?php echo $rows['serviceCategory'];?>
+				</td>
+				<td>
+					<?php echo $rows['serviceName'];?>
+				</td>
+				<td>
+					<?php echo $rows['servicePrice'];?>
+				</td>
+				<td>
+					<?php if($rows['isArchived'] == 0){ ?>
+					<center>
+						<a href="" class="btn btn-primary btn-sm edit-service" data-toggle="modal" data-target="#editModal" data-id="<?php echo $rows['serviceID'];?>"
+						 data-name="<?php echo $rows['serviceName'];?>" data-price="<?php echo $rows['servicePrice'];?>"
+						 data-category="<?php echo $rows['serviceCategory'];?>">
+							<i class="fas fa-edit"></i> Edit</a>
+
+						<a href="?deactivateServiceID=<?php echo $rows['serviceID'];?>" class="btn btn-secondary btn-sm"
+						 onclick="return confirm('Remove the service from the list?')">
+							<i class="fas fa-archive"></i> Archive</a>
+					</center>
+					<?php }
                 else { ?>
-                  <center>
-                    <a role='button' onclick='return confirm("Activate Selected Service?")' class='btn btn-info btn-sm ' href='?activateServiceID=<?php echo $rows['serviceID'];?>'>Activate</a>
-                  </center>
+					<center>
+						<a role='button' onclick='return confirm("Activate Selected Service?")' class='btn btn-info btn-sm ' href='?activateServiceID=<?php echo $rows['
+						 serviceID '];?>'>Activate</a>
+					</center>
 
-                <?php } ?>
-        
-                </td>
-              </tr> 
-              <?php }?>
-            </tbody>
-          </table>
-        </div>
+					<?php } ?>
 
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...
-        </div>
-      </div>
-    </div>
-  </div>
+				</td>
+			</tr>
+			<?php }?>
+		</tbody>
+	</table>
+</div>
+
+<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...
+</div>
+</div>
+</div>
+</div>
 </div>
 
 
 <!--ADD SERVICE MODAL-->
-<div class="modal fade modal bd-example-modal-lg" id="addServiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-dark text-white">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add Service</h5>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body"><!--modal content-->
+<div class="modal fade modal bd-example-modal-lg" id="addServiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+ aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-dark text-white">
+				<h5 class="modal-title" id="exampleModalLongTitle">Add Service</h5>
+				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<!--modal content-->
 
-        <?php if(isset($_SESSION['modalMsg'])) : ?>
-          <div class="alert alert-info">
-            <h5><?php echo $_SESSION['modalMsg'];
+				<?php if(isset($_SESSION['modalMsg'])) : ?>
+				<div class="alert alert-info">
+					<h5>
+						<?php echo $_SESSION['modalMsg'];
                       unset($_SESSION['modalMsg']);
               ?>
-            </h5>
-          </div>
-        <?php endif ?>
-        <?php echo modalErrors();?>
+					</h5>
+				</div>
+				<?php endif ?>
+				<?php echo modalErrors();?>
 
-        <form method="post" action="services.php">
-          <div class="form-row">
-            <div class="form-group col-sm-4">
-              <label>Select Category</label>
-              <select required class="form-control" name="serviceCategory">
-                <option></option>
-                  <?php $serviceCategory = ['F&B', 'Print/Scan', 'Downloads', 'Miscellaneous'];
+				<form method="post" action="services.php">
+					<div class="form-row">
+						<div class="form-group col-sm-4">
+							<label>Select Category</label>
+							<select required class="form-control" name="serviceCategory">
+								<option></option>
+								<?php $serviceCategory = ['F&B', 'Print/Scan', 'Downloads', 'Miscellaneous'];
                   for($i=0;$i<count($serviceCategory);$i++){
                     echo "<option value=".$serviceCategory[$i].">".$serviceCategory[$i]."</option>"; }?>
-              </select>
-            </div>
-            <div class="form-group col-sm-4">
-              <label>Service Name</label>
-              <input type="text" class="form-control" name="serviceName" required>
-            </div>
-            <div class="form-group col-sm-4">
-              <label>Price</label>
-              <input type="text" class="form-control" name="servicePrice" required>
-            </div>
-          </div>
-                
-      </div><!--end modal content-->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-dark" name="btnAddService">Add Service</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> 
+							</select>
+						</div>
+						<div class="form-group col-sm-4">
+							<label>Service Name</label>
+							<input type="text" class="form-control" name="serviceName" required>
+						</div>
+						<div class="form-group col-sm-4">
+							<label>Price</label>
+							<input type="text" class="form-control" name="servicePrice" required>
+						</div>
+					</div>
+
+			</div>
+			<!--end modal content-->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-dark" name="btnAddService">Add Service</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 <!--END ADD SERVICE MODAL-->
 
 <!--EDIT-->
-<div class="modal fade modal bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-dark text-white">
-        <h5 class="modal-title" id="exampleModalLongTitle">Update Service</h5>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body"><!--modal content-->
+<div class="modal fade modal bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+ aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-dark text-white">
+				<h5 class="modal-title" id="exampleModalLongTitle">Update Service</h5>
+				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<!--modal content-->
 
-        <form method="post" action="services.php">
-          <div class="form-row">
-            <div class="form-group col-sm-4">
-              <input type="hidden" name="UserviceID" id="serviceID" class="hidden">
-              <label>Select Category</label>
-              <select class="form-control" name="UserviceCategory" id="category">
-                  <?php $serviceCategory = ['F&B', 'Print/Scan', 'Downloads', 'Miscellaneous'];
+				<form method="post" action="services.php">
+					<div class="form-row">
+						<div class="form-group col-sm-4">
+							<input type="hidden" name="UserviceID" id="serviceID" class="hidden">
+							<label>Select Category</label>
+							<select class="form-control" name="UserviceCategory" id="category">
+								<?php $serviceCategory = ['F&B', 'Print/Scan', 'Downloads', 'Miscellaneous'];
                   for($i=0;$i<count($serviceCategory);$i++){
                     echo "<option value=".$serviceCategory[$i].">".$serviceCategory[$i]."</option>"; }?>
-              </select>
-            </div>
-            <div class="form-group col-sm-4">
-              <label>Service Name</label>
-              <input type="text" class="form-control" id="serviceName" name="UserviceName" required>
-            </div>
-            <div class="form-group col-sm-4">
-              <label>Price</label>
-              <input type="text" class="form-control" id="servicePrice" name="UservicePrice" required>
-            </div>
-          </div>
-                
-      </div><!--end modal content-->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-dark" name="btnUpdateService" >Update Service</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> 
+							</select>
+						</div>
+						<div class="form-group col-sm-4">
+							<label>Service Name</label>
+							<input type="text" class="form-control" id="serviceName" name="UserviceName" required>
+						</div>
+						<div class="form-group col-sm-4">
+							<label>Price</label>
+							<input type="text" class="form-control" id="servicePrice" name="UservicePrice" required>
+						</div>
+					</div>
+
+			</div>
+			<!--end modal content-->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-dark" name="btnUpdateService">Update Service</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 <script>
-  $(document).ready(function(){
-    $('#editModal').on('show.bs.modal', function (e) {
-        var serviceID = $(e.relatedTarget).data('id');
-        var serviceName = $(e.relatedTarget).data('name');
-        var servicePrice = $(e.relatedTarget).data('price');
-        var serviceCategory = $(e.relatedTarget).data('category');
+	$(document).ready(function() {
+		$('#editModal').on('show.bs.modal', function(e) {
+			var serviceID = $(e.relatedTarget).data('id');
+			var serviceName = $(e.relatedTarget).data('name');
+			var servicePrice = $(e.relatedTarget).data('price');
+			var serviceCategory = $(e.relatedTarget).data('category');
 
-        $('#serviceID').val(serviceID);
-        $('#category').val(serviceCategory);
-        $('#serviceName').val(serviceName);
-        $('#servicePrice').val(servicePrice);
-        //Can pass as many onpage values or information to modal  
-     });
-});
+			$('#serviceID').val(serviceID);
+			$('#category').val(serviceCategory);
+			$('#serviceName').val(serviceName);
+			$('#servicePrice').val(servicePrice);
+			//Can pass as many onpage values or information to modal  
+		});
+	});
 
-  $(document).ready(function(){
-    $('#searchService').on('keyup',function(){
-      var searchTerm = $(this).val().toLowerCase();
-        $('#servicesTable tbody tr').each(function(){
-          var lineStr = $(this).text().toLowerCase();
-            if(lineStr.indexOf(searchTerm) === -1){
-              $(this).hide();
-            }else{
-              $(this).show();
-            }
-        });
-    });
-  });
+	$(document).ready(function() {
+		$('#searchService').on('keyup', function() {
+			var searchTerm = $(this).val().toLowerCase();
+			$('#servicesTable tbody tr').each(function() {
+				var lineStr = $(this).text().toLowerCase();
+				if (lineStr.indexOf(searchTerm) === -1) {
+					$(this).hide();
+				} else {
+					$(this).show();
+				}
+			});
+		});
+	});
 
-  <?php if(isset($_POST['btnAddService'])){?>
-    /* Your (php) way of checking that the form has been submitted */
-    $(function() {// On DOM ready
-    $('#addServiceModal').modal('show');// Show the modal
-    });
-  <?php } ?>/* /form has been submitted */
-
+	<?php if(isset($_POST['btnAddService'])){?>
+	/* Your (php) way of checking that the form has been submitted */
+	$(function() { // On DOM ready
+		$('#addServiceModal').modal('show'); // Show the modal
+	});
+	<?php } ?>
+	/* /form has been submitted */
 </script>
-
